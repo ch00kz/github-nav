@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Github Navigator</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <style type="text/css">
+        html, body {
+            margin:0;
+            height: 100%;
+            font-size: 13px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        main {
+            padding: 20px;
+        }
+        .search-term {
+            margin-top: 0;
+        }
+        .repository {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .commit-sha {
+            font-weight: 400;
+            color: #868686;
+        }
+        .owner-avatar {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1 class="search-term">"{{ search_term }}"</h1>
+        {% for repository in repositories %}
+            <div class="repository">
+                <h2>{{ loop.index }}. {{ repository.name }}</h2>
+                <h3> Created: {{ repository.created }}</h3>
+                <a class="owner-avatar" href="{{ repository.owner.url }}">
+                    <img src="{{ repository.owner.avatar }}" alt="avatar" height="42" width="42"/>
+                </a>
+                <span class="owner-login">{{ repository.owner.login }}</span>
+                <h3>
+                    Last Commit -
+                    <span class="commit-sha">{{ repository.last_commit.sha }}</span> -
+                    <span class="commit-author">{{ repository.last_commit.author }}</span>
+                </h3>
+                <div class="commit-message">{{ repository.last_commit.message }}</div>
+            </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
